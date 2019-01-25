@@ -12,7 +12,6 @@ public class Game : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("jee");
 		Api.instance.On ("setCurrentUser", this.OnSetCurrentUser);
 		Api.instance.On ("updateUser", this.OnUpdateUser);
 		Api.instance.On ("initItem", this.OnInitItem);
@@ -38,7 +37,36 @@ public class Game : MonoBehaviour {
 	}
 
 	public void OnInitItem(SocketIOEvent e) {
-		
+		string id = "";
+		e.data.GetField (ref id, "id");
+
+		bool alreadyHasItem = this._items.Find (item => item.id == id) != null;
+		if (alreadyHasItem) {
+			return;
+		}
+
+		string type = "";
+		e.data.GetField (ref type, "type");
+		Transform itemToInstantiate = this.ItemTypeToTransform (type);
+		Debug.Log (itemToInstantiate);
+		Transform transform = GameObject.Instantiate (itemToInstantiate);
+
+		Vector3 position = Vector3.zero;
+		e.data.GetField (ref position.x, "x");
+		e.data.GetField (ref position.z, "y");
+
+		transform.position = position;
+
+		this._items.Add (new Item (id, transform));
+	}
+
+	private Transform ItemTypeToTransform(string type) {
+		switch (type) {
+		case "user":
+			return this.otherUserPrefab;
+		}
+
+		return null;
 	}
 }
 
