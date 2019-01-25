@@ -61,6 +61,7 @@ io.on("connection", function(socket) {
     }
 
     currentUser.carries = blockId;
+    block.owner = currentUser.id;
     block.r = currentUser.r;
     block.g = currentUser.g;
     block.b = currentUser.b;
@@ -84,7 +85,19 @@ io.on("connection", function(socket) {
     block.x = currentUser.x + 1;
     block.y = currentUser.y;
 
-    setTimeout(() => io.emit("update", block), 0);
+    // Check which blocks are touching the current block
+    const touching = findTouching(block);
+    const newOwnerId = findOwnerWithMostBlocks(touching);
+    const newOwner = data.find(i => i.id === newOwnerId);
+
+    touching.forEach(touchingBlock => {
+      touchingBlock.owner = newOwnerId;
+      touchingBlock.r = newOwner.r;
+      touchingBlock.g = newOwner.g;
+      touchingBlock.b = newOwner.b;
+      setTimeout(() => io.emit("update", touchingBlock), 0);
+    });
+
     setTimeout(() => io.emit("update", currentUser), 0);
   });
 
@@ -96,3 +109,35 @@ io.on("connection", function(socket) {
 http.listen(3000, function() {
   console.log("listening on *:3000");
 });
+
+function findTouching(item) {
+  let touchingItems = [item];
+  let lastTouchingItems;
+  do {
+    lastTouchingItems = touchingItems;
+    touchingItems = data.filter(
+      i => i.type === "block" && lastTouchingItems.some(i2 => isTouching(i, i2))
+    );
+  } while (lastTouchingItems.length !== touchingItems.length);
+
+  return touchingItems;
+}
+
+function isTouching(item1, item2) {
+  const xDiff = item1.x - item2.x;
+  const yDiff = item1.y - item2.y;
+
+  return xDiff ** 2 + yDiff ** 2 <= 1;
+}
+
+function findOwnerWithMostBlocks(blocks) {
+  const owners = [...new Set(blocks.map(i => i.owner).filter(Boolean))];
+  if (owners.length === 1) return owners[0];
+
+  const withWeights = owners.map(o => ({
+    owner: o,
+    num: blocks.filter(block => block.owner === o).length
+  }));
+
+  return withWeights.sort((a, b) => b.num - a.num)[0].owner;
+}
