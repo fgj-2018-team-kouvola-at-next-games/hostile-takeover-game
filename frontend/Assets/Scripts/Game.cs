@@ -82,9 +82,19 @@ public class Game : MonoBehaviour {
 		if (item.type == "user") {
 			string carries = null;
 			e.data.GetField (ref carries, "carries");
+
+			Player player = item.transform.gameObject.GetComponent<Player> ();
+
 			if (carries != null) {
 				Item carriesItem = this._items.Find (i => i.id == carries);
 				carriesItem.transform.position = item.transform.position + Vector3.up;
+				if (player) {
+					player.SetCarrying (carriesItem.transform.GetComponent<Block> ());
+				}
+			} else {
+				if (player) {
+					player.SetCarrying (null);
+				}
 			}
 		}
 	}

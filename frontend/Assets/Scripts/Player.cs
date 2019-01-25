@@ -29,15 +29,23 @@ public class Player : MonoBehaviour {
 		}
 
 		if (_isCarrying == null && this._isNearBlock != null && Input.GetKeyDown (KeyCode.Space)) {
-			this._isCarrying = this._isNearBlock;
-			Api.SendPickMessage(this._isCarrying.gameObject.name);
+			Api.SendPickMessage(this._isNearBlock.gameObject.name);
 		} else if (_isCarrying != null && Input.GetKeyDown (KeyCode.Space)) {
 			Api.SendPlaceMessage ();
-			this._isCarrying = null;
 		}
 	}
 
+	public void SetCarrying(Block target) {
+		if (target != null) {
+			_isNearBlock = null;
+		}
+		this._isCarrying = target;
+	}
+
 	void OnTriggerEnter(Collider collider) {
+		if (this._isCarrying != null)
+			return;
+
 		Block block = collider.gameObject.GetComponent<Block> ();
 		if(!block) return;
 

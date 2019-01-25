@@ -45,6 +45,16 @@ io.on("connection", function(socket) {
   io.emit("initItem", currentUser);
 
   socket.on("move", function({ x, y }) {
+    // hit test
+    const newItem = {
+      ...currentUser,
+      x: currentUser.x + x,
+      y: currentUser.y + y
+    };
+    if (hitTestAll(newItem)) {
+      return;
+    }
+
     currentUser.x += x;
     currentUser.y += y;
 
@@ -60,8 +70,13 @@ io.on("connection", function(socket) {
       return;
     }
 
+    if (!isTouching(currentUser, block)) {
+      return;
+    }
+
     currentUser.carries = blockId;
     block.owner = currentUser.id;
+    block.isCarried = true;
     block.r = currentUser.r;
     block.g = currentUser.g;
     block.b = currentUser.b;
@@ -81,7 +96,12 @@ io.on("connection", function(socket) {
       return;
     }
 
+    if (hitTestAll({ ...block, y: currentUser.y, x: currentUser.x + 1 })) {
+      return;
+    }
+
     currentUser.carries = undefined;
+    block.isCarried = false;
     block.x = currentUser.x + 1;
     block.y = currentUser.y;
 
@@ -140,4 +160,14 @@ function findOwnerWithMostBlocks(blocks) {
   }));
 
   return withWeights.sort((a, b) => b.num - a.num)[0].owner;
+}
+
+function hitTestAll(target) {
+  return data.some(
+    item =>
+      item.id !== target.id &&
+      !item.isCarried &&
+      target.x === item.x &&
+      target.y === item.y
+  );
 }
