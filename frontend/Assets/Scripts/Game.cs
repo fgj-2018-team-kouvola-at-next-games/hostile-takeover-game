@@ -7,6 +7,7 @@ public class Game : MonoBehaviour {
 
 	public Transform currentUserPrefab;
 	public Transform otherUserPrefab;
+	public Transform blockPrefab;
 
 	private List<Item> _items = new List<Item>();
 
@@ -48,7 +49,6 @@ public class Game : MonoBehaviour {
 		string type = "";
 		e.data.GetField (ref type, "type");
 		Transform itemToInstantiate = this.ItemTypeToTransform (type);
-		Debug.Log (itemToInstantiate);
 		Transform transform = GameObject.Instantiate (itemToInstantiate);
 
 		Vector3 position = Vector3.zero;
@@ -64,6 +64,8 @@ public class Game : MonoBehaviour {
 		switch (type) {
 		case "user":
 			return this.otherUserPrefab;
+		case "block":
+			return this.blockPrefab;
 		}
 
 		return null;

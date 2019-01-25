@@ -5,6 +5,15 @@ const uuid = require("uuid/v4");
 
 const data = [];
 
+for (let i = 0; i < 20; i++) {
+  data.push({
+    id: uuid(),
+    x: Math.floor(Math.random() * 100),
+    y: Math.floor(Math.random() * 100),
+    type: "block"
+  });
+}
+
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });

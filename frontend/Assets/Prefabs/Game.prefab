@@ -102,3 +102,5 @@ MonoBehaviour:
     type: 2}
   otherUserPrefab: {fileID: 4231929074515730, guid: 205629ff79c6044a597fc270dfd68376,
     type: 2}
+  blockPrefab: {fileID: 4977459944846508, guid: 6959c4ec911334df8b2ef7b6a3e504db,
+    type: 2}
