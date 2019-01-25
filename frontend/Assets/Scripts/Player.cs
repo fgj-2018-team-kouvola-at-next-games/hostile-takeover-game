@@ -5,6 +5,9 @@ using SocketIO;
 
 public class Player : MonoBehaviour {
 
+	Block _isNearBlock;
+	Block _isCarrying;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -24,18 +27,29 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
 			Api.SendMoveMessage (Vector2.right);
 		}
+
+		if (_isCarrying == null && this._isNearBlock != null && Input.GetKeyDown (KeyCode.Space)) {
+			this._isCarrying = this._isNearBlock;
+			Api.SendPickMessage(this._isCarrying.gameObject.name);
+		} else if (_isCarrying != null && Input.GetKeyDown (KeyCode.Space)) {
+			Api.SendPlaceMessage ();
+			this._isCarrying = null;
+		}
 	}
 
-	public void OnUpdateEvent(SocketIOEvent e)
-	{
-		Debug.Log("[SocketIO] Boop received: " + e.name + " " + e.data);
+	void OnTriggerEnter(Collider collider) {
+		Block block = collider.gameObject.GetComponent<Block> ();
+		if(!block) return;
 
-		if (e.data == null) { return; }
+		this._isNearBlock = block;
+	}
 
-		Debug.Log(
-			"#####################################################" +
-			"THIS: " + e.data.GetField("this").str +
-			"#####################################################"
-		);
+	void OnTriggerExit(Collider collider) {
+		Block block = collider.gameObject.GetComponent<Block> ();
+		if(!block) return;
+
+		if (this._isNearBlock == block) {
+			this._isNearBlock = null;
+		}
 	}
 }

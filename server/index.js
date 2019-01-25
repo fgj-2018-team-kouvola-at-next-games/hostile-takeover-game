@@ -10,6 +10,9 @@ for (let i = 0; i < 20; i++) {
     id: uuid(),
     x: Math.floor(Math.random() * 100),
     y: Math.floor(Math.random() * 100),
+    r: 0.5,
+    g: 0.5,
+    b: 0.5,
     type: "block"
   });
 }
@@ -23,6 +26,9 @@ io.on("connection", function(socket) {
     id: uuid(),
     x: Math.floor(Math.random() * 100),
     y: Math.floor(Math.random() * 100),
+    r: Math.random(),
+    g: Math.random(),
+    b: Math.random(),
     type: "user"
   };
 
@@ -42,16 +48,50 @@ io.on("connection", function(socket) {
     currentUser.x += x;
     currentUser.y += y;
 
-    setTimeout(() => io.emit("updateUser", currentUser), 0);
+    setTimeout(() => io.emit("update", currentUser), 0);
   });
+
+  socket.on("pick", function({ blockId }) {
+    const block = data.find(
+      item => item.type === "block" && item.id === blockId
+    );
+    if (!block) {
+      console.error(`Block with id ${blockId} not found`);
+      return;
+    }
+
+    currentUser.carries = blockId;
+    block.r = currentUser.r;
+    block.g = currentUser.g;
+    block.b = currentUser.b;
+
+    setTimeout(() => io.emit("update", block), 0);
+    setTimeout(() => io.emit("update", currentUser), 0);
+  });
+
+  socket.on("place", function() {
+    if (!currentUser.carries) return;
+
+    const block = data.find(
+      item => item.type === "block" && item.id === currentUser.carries
+    );
+    if (!block) {
+      console.error(`Block with id ${blockId} not found`);
+      return;
+    }
+
+    currentUser.carries = undefined;
+    block.x = currentUser.x + 1;
+    block.y = currentUser.y;
+
+    setTimeout(() => io.emit("update", block), 0);
+    setTimeout(() => io.emit("update", currentUser), 0);
+  });
+
   socket.on("disconnect", function() {
     console.log("user disconnected");
   });
 });
-
-function updateClients() {
-  io.emit("update", "boop");
-}
 
 http.listen(3000, function() {
   console.log("listening on *:3000");

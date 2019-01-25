@@ -14,34 +14,33 @@ public class Game : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Api.instance.On ("setCurrentUser", this.OnSetCurrentUser);
-		Api.instance.On ("updateUser", this.OnUpdateUser);
+		Api.instance.On ("update", this.OnUpdate);
 		Api.instance.On ("initItem", this.OnInitItem);
 	}
 
-	public void OnUpdateUser(SocketIOEvent e) {
+	public void OnUpdate(SocketIOEvent e) {
 		string id = "";
 		e.data.GetField (ref id, "id");
 		Item itemToChange = this._items.Find (item => item.id == id);
 
-		Vector3 newPosition = Vector3.zero;
-		e.data.GetField (ref newPosition.x, "x");
-		e.data.GetField (ref newPosition.z, "y");
-
-		itemToChange.transform.position = newPosition;
+		this.UpdateItem (itemToChange, e);
 	}
 
 	public void OnSetCurrentUser(SocketIOEvent e) {
 		Transform userTransform = GameObject.Instantiate (this.currentUserPrefab);
 		string id = "";
 		e.data.GetField (ref id, "id");
-		this._items.Add (new Item (id, userTransform));
+
+		Item item = new Item (id, "user", userTransform);
+		this.UpdateItem (item, e);
+		this._items.Add (item);
 	}
 
 	public void OnInitItem(SocketIOEvent e) {
 		string id = "";
 		e.data.GetField (ref id, "id");
 
-		bool alreadyHasItem = this._items.Find (item => item.id == id) != null;
+		bool alreadyHasItem = this._items.Find (i => i.id == id) != null;
 		if (alreadyHasItem) {
 			return;
 		}
@@ -51,13 +50,9 @@ public class Game : MonoBehaviour {
 		Transform itemToInstantiate = this.ItemTypeToTransform (type);
 		Transform transform = GameObject.Instantiate (itemToInstantiate);
 
-		Vector3 position = Vector3.zero;
-		e.data.GetField (ref position.x, "x");
-		e.data.GetField (ref position.z, "y");
-
-		transform.position = position;
-
-		this._items.Add (new Item (id, transform));
+		Item item = new Item (id, type, transform);
+		this.UpdateItem(item, e);
+		this._items.Add (item);
 	}
 
 	private Transform ItemTypeToTransform(string type) {
@@ -70,14 +65,40 @@ public class Game : MonoBehaviour {
 
 		return null;
 	}
+
+	private void UpdateItem(Item item, SocketIOEvent e) {
+		Vector3 position = Vector3.zero;
+		e.data.GetField (ref position.x, "x");
+		e.data.GetField (ref position.z, "y");
+
+		Color color = new Color ();
+		e.data.GetField (ref color.r, "r");
+		e.data.GetField (ref color.g, "g");
+		e.data.GetField (ref color.b, "b");
+
+		item.transform.position = position;
+		item.transform.gameObject.GetComponent<Renderer> ().material.color = color;
+
+		if (item.type == "user") {
+			string carries = null;
+			e.data.GetField (ref carries, "carries");
+			if (carries != null) {
+				Item carriesItem = this._items.Find (i => i.id == carries);
+				carriesItem.transform.position = item.transform.position + Vector3.up;
+			}
+		}
+	}
 }
 
 public class Item {
 	public string id;
+	public string type;
 	public Transform transform;
 
-	public Item(string newId, Transform newTransform) {
+	public Item(string newId, string newType, Transform newTransform) {
 		this.id = newId;
+		this.type = newType;
 		this.transform = newTransform;
+		newTransform.gameObject.name = id;
 	}
 }

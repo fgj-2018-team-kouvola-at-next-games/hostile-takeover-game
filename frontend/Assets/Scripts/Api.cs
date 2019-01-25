@@ -22,8 +22,20 @@ public class Api {
 		JSONObject message = new JSONObject (JSONObject.Type.OBJECT);
 		message.AddField ("x", delta.x);
 		message.AddField ("y", delta.y);
-		message.AddField ("userId", "p1");
 
 		Api.instance.Emit ("move", message);
 	}
+
+	public static void SendPickMessage(string blockId) {
+		JSONObject message = new JSONObject (JSONObject.Type.OBJECT);
+		message.AddField ("blockId", blockId);
+
+		Api.instance.Emit ("pick", message);
+	}
+
+	public static void SendPlaceMessage() {
+		Api.instance.Emit ("place");
+	}
+
+
 }
