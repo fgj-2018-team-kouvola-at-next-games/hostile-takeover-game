@@ -22,7 +22,7 @@ public class Api {
 		JSONObject message = new JSONObject (JSONObject.Type.OBJECT);
 		message.AddField ("x", delta.x);
 		message.AddField ("y", delta.y);
-		message.AddField ("player", "p1");
+		message.AddField ("userId", "p1");
 
 		Api.instance.Emit ("move", message);
 	}
