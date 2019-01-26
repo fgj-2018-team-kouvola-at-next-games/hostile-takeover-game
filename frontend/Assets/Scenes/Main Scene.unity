@@ -396,25 +396,60 @@ PrefabInstance:
       propertyPath: m_Type
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4480208824768087407, guid: 474b5bfef0b884e339e46c03e53e4af6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 4480208824768087407, guid: 474b5bfef0b884e339e46c03e53e4af6,
+        type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480208824768087407, guid: 474b5bfef0b884e339e46c03e53e4af6,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7479711579930152387, guid: 474b5bfef0b884e339e46c03e53e4af6,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479711579930152387, guid: 474b5bfef0b884e339e46c03e53e4af6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8876264967739693606, guid: 474b5bfef0b884e339e46c03e53e4af6,
         type: 3}
       propertyPath: m_Type
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8876264967739693606, guid: 474b5bfef0b884e339e46c03e53e4af6,
         type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 3913444201383659552, guid: 474b5bfef0b884e339e46c03e53e4af6,
+        type: 3}
       propertyPath: m_Type
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3913444201383659552, guid: 474b5bfef0b884e339e46c03e53e4af6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 3154563718477418960, guid: 474b5bfef0b884e339e46c03e53e4af6,
         type: 3}
       propertyPath: m_Type
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3154563718477418960, guid: 474b5bfef0b884e339e46c03e53e4af6,
         type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 474b5bfef0b884e339e46c03e53e4af6, type: 3}
