@@ -127,7 +127,9 @@ io.on("connection", function(socket) {
   });
 
   socket.on("disconnect", function() {
-    console.log("user disconnected");
+    removeUser(currentUser.id);
+    io.emit('removeUser', currentUser);
+    console.log("a user disconnected with id", currentUser.id);
   });
 });
 
@@ -135,6 +137,23 @@ const PORT = process.env.PORT || 3000;
 http.listen(PORT, function() {
   console.log("listening on *:" + PORT);
 });
+
+function removeUser(userId) {
+  data.forEach((item, i, arr) => {
+    // release all the blocks owned by this user
+    if (item.owner === userId && item.type === 'block') {
+      delete arr[i].owner;
+      arr[i].r = 0.5;
+      arr[i].g = 0.5;
+      arr[i].b = 0.5;
+      io.emit("update", arr[i]);
+    }
+    // remove user from the game
+    if (item.id === userId && item.type === 'user') {
+      arr.splice[i, 1];
+    }
+  });
+}
 
 function findTouching(item) {
   let touchingItems = [item];
