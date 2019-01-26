@@ -383,7 +383,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   exposureAdjustment: 2.87
   middleGrey: 0.42
-  white: 1.71
+  white: 2.3
   adaptionSpeed: 4.99
   tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
   validRenderTextureFormat: 1
