@@ -359,14 +359,32 @@ MonoBehaviour:
   adaptiveTextureSize: 128
   remapCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 2
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  exposureAdjustment: 1.84
-  middleGrey: 0.67
-  white: 1.58
-  adaptionSpeed: 1.68
+  exposureAdjustment: 2.87
+  middleGrey: 0.42
+  white: 1.71
+  adaptionSpeed: 4.99
   tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
   validRenderTextureFormat: 1
 --- !u!1001 &3223778271971197230
