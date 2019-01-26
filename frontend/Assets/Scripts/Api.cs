@@ -57,7 +57,7 @@ public class Api {
 
     public static void Emit(string eventName)
     {
-        Api.Emit(eventName, null);
+        Api.Emit(eventName, new JSONObject("{}"));
     }
 
     public static void Emit(string eventName, JSONObject data)
