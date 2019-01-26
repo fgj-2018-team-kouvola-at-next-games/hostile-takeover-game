@@ -8,11 +8,19 @@ public class Game : MonoBehaviour {
 	public Transform currentUserPrefab;
 	public Transform otherUserPrefab;
 	public Transform blockPrefab;
-
+   
 	private List<Item> _items = new List<Item>();
 
-	// Use this for initialization
-	void Start () {
+    private void Awake() {
+        if (!Application.isEditor)
+        {
+            Api.instance.url = "ws://fgj-2018-hostile-takeover-game.herokuapp.com/socket.io/?EIO=4&transport=websocket";
+        }
+
+    }
+
+    // Use this for initialization
+    void Start () {
 		Api.instance.On ("setCurrentUser", this.OnSetCurrentUser);
 		Api.instance.On ("update", this.OnUpdate);
 		Api.instance.On ("initItem", this.OnInitItem);
