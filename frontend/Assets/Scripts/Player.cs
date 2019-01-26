@@ -42,12 +42,11 @@ public class Player : MonoBehaviour {
 		this._isCarrying = target;
 	}
 
-	void OnCollisionEnter(Collision collision) {
-        Debug.Log("moi");
+	void OnTriggerEnter(Collider collider) {
 		if (this._isCarrying != null)
 			return;
 
-		Block block = collision.gameObject.GetComponent<Block> ();
+		Block block = collider.gameObject.GetComponent<Block> ();
 		if(!block) return;
 
 		this._isNearBlock = block;
