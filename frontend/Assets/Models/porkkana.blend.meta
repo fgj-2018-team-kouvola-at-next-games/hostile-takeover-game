@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e272acda731fb4d88819e3de2a3fb3a8
+=======
+guid: b50d9e83f705f45cfbad206d2b2aba0a
+>>>>>>> 2ad2a20659f370bf4dba8ae702c4565f4c143e4f
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -72,7 +76,21 @@ ModelImporter:
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
+<<<<<<< HEAD
   externalObjects: {}
+=======
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_001
+    second: {fileID: 2100000, guid: 914292f120c5d4d1ba86ec125bd65a8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_004
+    second: {fileID: 2100000, guid: 4876cee9cfef74ef78148c8ddf151805, type: 2}
+>>>>>>> 2ad2a20659f370bf4dba8ae702c4565f4c143e4f
   materials:
     importMaterials: 1
     materialName: 0
