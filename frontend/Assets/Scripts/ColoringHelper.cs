@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHelper : MonoBehaviour
+public class ColoringHelper : MonoBehaviour
 {
 
     public Renderer modelRenderer;

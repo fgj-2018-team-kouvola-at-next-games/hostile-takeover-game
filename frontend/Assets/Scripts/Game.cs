@@ -77,7 +77,7 @@ public class Game : MonoBehaviour {
 		e.data.GetField (ref color.b, "b");
 
 		item.transform.position = position;
-		item.transform.gameObject.GetComponent<PlayerHelper>().modelRenderer.material.color = color;
+		item.transform.gameObject.GetComponent<ColoringHelper>().modelRenderer.material.color = color;
 
 		if (item.type == "user") {
 			string carries = null;
