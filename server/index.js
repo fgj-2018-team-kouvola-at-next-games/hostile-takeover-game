@@ -1,15 +1,16 @@
-var app = require("express")();
+const express = require("express");
+var app = express();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 const uuid = require("uuid/v4");
 
 const data = [];
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 100; i++) {
   data.push({
     id: uuid(),
-    x: Math.floor(Math.random() * 100),
-    y: Math.floor(Math.random() * 100),
+    x: Math.floor(Math.random() * 50),
+    y: Math.floor(Math.random() * 50),
     r: 0.5,
     g: 0.5,
     b: 0.5,
@@ -17,18 +18,18 @@ for (let i = 0; i < 20; i++) {
   });
 }
 
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/index.html");
-});
+app.use(express.static("build"));
 
 io.on("connection", function(socket) {
-  currentUser = {
+  const currentUser = {
     id: uuid(),
-    x: Math.floor(Math.random() * 100),
-    y: Math.floor(Math.random() * 100),
+    x: Math.floor(Math.random() * 50),
+    y: Math.floor(Math.random() * 50),
     r: Math.random(),
     g: Math.random(),
     b: Math.random(),
+    directionX: 0,
+    directionY: 1,
     type: "user"
   };
 
@@ -57,6 +58,8 @@ io.on("connection", function(socket) {
 
     currentUser.x += x;
     currentUser.y += y;
+    currentUser.directionX = x;
+    currentUser.directionY = y;
 
     setTimeout(() => io.emit("update", currentUser), 0);
   });
@@ -96,14 +99,14 @@ io.on("connection", function(socket) {
       return;
     }
 
-    if (hitTestAll({ ...block, y: currentUser.y, x: currentUser.x + 1 })) {
+    if (hitTestAll({ ...block, y: currentUser.y + currentUser.directionY, x: currentUser.x + currentUser.directionX })) {
       return;
     }
 
     currentUser.carries = undefined;
     block.isCarried = false;
-    block.x = currentUser.x + 1;
-    block.y = currentUser.y;
+    block.x = currentUser.x + currentUser.directionX;
+    block.y = currentUser.y + currentUser.directionY;
 
     // Check which blocks are touching the current block
     const touching = findTouching(block);
