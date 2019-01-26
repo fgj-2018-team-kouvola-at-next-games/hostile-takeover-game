@@ -6,11 +6,11 @@ const uuid = require("uuid/v4");
 
 const data = [];
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 100; i++) {
   data.push({
     id: uuid(),
-    x: Math.floor(Math.random() * 100),
-    y: Math.floor(Math.random() * 100),
+    x: Math.floor(Math.random() * 50),
+    y: Math.floor(Math.random() * 50),
     r: 0.5,
     g: 0.5,
     b: 0.5,
@@ -23,8 +23,8 @@ app.use(express.static("build"));
 io.on("connection", function(socket) {
   const currentUser = {
     id: uuid(),
-    x: Math.floor(Math.random() * 100),
-    y: Math.floor(Math.random() * 100),
+    x: Math.floor(Math.random() * 50),
+    y: Math.floor(Math.random() * 50),
     r: Math.random(),
     g: Math.random(),
     b: Math.random(),
