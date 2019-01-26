@@ -122,6 +122,8 @@ io.on("connection", function(socket) {
     });
 
     setTimeout(() => io.emit("update", currentUser), 0);
+
+    updateLeaderboard()
   });
 
   socket.on("disconnect", function() {
@@ -174,4 +176,24 @@ function hitTestAll(target) {
       target.x === item.x &&
       target.y === item.y
   );
+}
+
+function updateLeaderboard() {
+  const leaderboard = data.reduce((lb, item) => {
+    if (item.type !== "block") return lb
+    if (!item.owner) return lb
+
+    const numBlocks = lb[item.owner] || 0
+    return {
+      ...lb,
+      [item.owner]: numBlocks + 1
+    }
+  }, {})
+
+  const asArray = Object.entries(leaderboard).map(([id, numBlocks]) => ({ id, numBlocks })).sort((a,b) => b.numBlocks - a.numBlocks)
+
+  const top10 = asArray.slice(0, 5)
+  const withUserData = top10.map((u, position) => Object.assign(u, { position }, data.find(b => b.id === u.id)))
+
+  withUserData.forEach(boardItem => io.emit("leaderboard", boardItem));
 }
