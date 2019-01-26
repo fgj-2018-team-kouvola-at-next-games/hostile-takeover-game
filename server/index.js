@@ -28,6 +28,8 @@ io.on("connection", function(socket) {
     r: Math.random(),
     g: Math.random(),
     b: Math.random(),
+    directionX: 0,
+    directionY: 1,
     type: "user"
   };
 
@@ -48,7 +50,9 @@ io.on("connection", function(socket) {
     const newItem = {
       ...currentUser,
       x: currentUser.x + x,
-      y: currentUser.y + y
+      y: currentUser.y + y,
+      directionX: x,
+      directionY: y
     };
     if (hitTestAll(newItem)) {
       return;
@@ -95,14 +99,14 @@ io.on("connection", function(socket) {
       return;
     }
 
-    if (hitTestAll({ ...block, y: currentUser.y, x: currentUser.x + 1 })) {
+    if (hitTestAll({ ...block, y: currentUser.y currentUser.directionY, x: currentUser.x + currentUser.directionX })) {
       return;
     }
 
     currentUser.carries = undefined;
     block.isCarried = false;
-    block.x = currentUser.x + 1;
-    block.y = currentUser.y;
+    block.x = currentUser.x + currentUser.directionX;
+    block.y = currentUser.y + currentUser.directionY;
 
     // Check which blocks are touching the current block
     const touching = findTouching(block);
