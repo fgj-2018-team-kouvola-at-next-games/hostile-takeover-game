@@ -99,7 +99,7 @@ io.on("connection", function(socket) {
       return;
     }
 
-    if (hitTestAll({ ...block, y: currentUser.y currentUser.directionY, x: currentUser.x + currentUser.directionX })) {
+    if (hitTestAll({ ...block, y: currentUser.y + currentUser.directionY, x: currentUser.x + currentUser.directionX })) {
       return;
     }
 
