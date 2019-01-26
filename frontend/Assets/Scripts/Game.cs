@@ -78,8 +78,9 @@ public class Game : MonoBehaviour {
 
 		item.transform.position = position;
 		item.transform.gameObject.GetComponent<ColoringHelper>().modelRenderer.material.color = color;
+        item.transform.gameObject.GetComponentInChildren<MinimapItem>().SetColor( color);
 
-		if (item.type == "user") {
+        if (item.type == "user") {
 			string carries = null;
 			e.data.GetField (ref carries, "carries");
 
