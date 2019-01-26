@@ -14,6 +14,7 @@ public class Leaderboard : MonoBehaviour
 {
     LeaderboardItem[] items = new LeaderboardItem[5];
     public Text text;
+    public Text shadowText;
     public Image[] colors;
 
     // Start is called before the first frame update
@@ -47,14 +48,15 @@ public class Leaderboard : MonoBehaviour
 
     private void UpdateText()
     {
-        this.text.text = "Leaderboard:\n";
+        this.text.text = this.shadowText.text = "Leaderboard:\n";
 
         int i = 0;
         foreach (LeaderboardItem item in this.items)
         {
             if (item.numBlocks > 0)
             {
-                this.text.text += item.numBlocks + "\n";
+                this.text.text += "<size=24><color=#" + ColorUtility.ToHtmlStringRGBA(item.color) + ">" + item.numBlocks + "</color></size>\n";
+                this.shadowText.text += "<size=24>" + item.numBlocks + "</size>\n";
                 this.colors[i].color = item.color;
             }
             else
