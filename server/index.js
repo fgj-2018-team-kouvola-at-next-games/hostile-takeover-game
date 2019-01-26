@@ -21,7 +21,7 @@ for (let i = 0; i < 20; i++) {
 app.use(express.static("build"));
 
 io.on("connection", function(socket) {
-  currentUser = {
+  const currentUser = {
     id: uuid(),
     x: Math.floor(Math.random() * 100),
     y: Math.floor(Math.random() * 100),
