@@ -50,9 +50,7 @@ io.on("connection", function(socket) {
     const newItem = {
       ...currentUser,
       x: currentUser.x + x,
-      y: currentUser.y + y,
-      directionX: x,
-      directionY: y
+      y: currentUser.y + y
     };
     if (hitTestAll(newItem)) {
       return;
@@ -60,6 +58,8 @@ io.on("connection", function(socket) {
 
     currentUser.x += x;
     currentUser.y += y;
+    currentUser.directionX = x;
+    currentUser.directionY = y;
 
     setTimeout(() => io.emit("update", currentUser), 0);
   });
