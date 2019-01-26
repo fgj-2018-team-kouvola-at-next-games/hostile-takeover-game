@@ -48,7 +48,9 @@ public class Leaderboard : MonoBehaviour
 
     private void UpdateText()
     {
-        this.text.text = this.shadowText.text = "Leaderboard:\n";
+        this.shadowText.text = "Leaderboard:\n";
+        this.text.text = "<color=#ce9931>" + this.shadowText.text + "</color>";
+
 
         int i = 0;
         foreach (LeaderboardItem item in this.items)
