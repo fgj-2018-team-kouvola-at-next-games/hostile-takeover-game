@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
 			Api.SendPickMessage(this._isNearBlock.gameObject.name);
 		} else if (_isCarrying != null && Input.GetKeyDown (KeyCode.Space)) {
 			Api.SendPlaceMessage ();
-		}
+        }
 	}
 
 	public void SetCarrying(Block target) {
@@ -42,11 +42,12 @@ public class Player : MonoBehaviour {
 		this._isCarrying = target;
 	}
 
-	void OnTriggerEnter(Collider collider) {
+	void OnCollisionEnter(Collision collision) {
+        Debug.Log("moi");
 		if (this._isCarrying != null)
 			return;
 
-		Block block = collider.gameObject.GetComponent<Block> ();
+		Block block = collision.gameObject.GetComponent<Block> ();
 		if(!block) return;
 
 		this._isNearBlock = block;
