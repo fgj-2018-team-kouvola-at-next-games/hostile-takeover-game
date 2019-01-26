@@ -233,7 +233,7 @@ PrefabInstance:
     - target: {fileID: 114023955903012542, guid: 27cc2739d185445bdbd55169e33f554a,
         type: 3}
       propertyPath: url
-      value: ws://fgj-2018-hostile-takeover-game.herokuapp.com/socket.io/?EIO=4&transport=websocket
+      value: ws://127.0.0.1:3000/socket.io/?EIO=4&transport=websocket
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27cc2739d185445bdbd55169e33f554a, type: 3}
