@@ -6,7 +6,7 @@ using SocketIO;
 public class Player : MonoBehaviour {
 
 	Block _isNearBlock;
-	Block _isCarrying;
+	public Block _isCarrying;
 
 	// Use this for initialization
 	void Start () {

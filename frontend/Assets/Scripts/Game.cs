@@ -24,7 +24,7 @@ public class Game : MonoBehaviour {
 		e.data.GetField (ref id, "id");
 		Item itemToChange = this._items.Find (item => item.id == id);
 
-		this.UpdateItem (itemToChange, e);
+		this.UpdateItem (itemToChange, e, smooth: true);
 	}
 
 	public void OnSetCurrentUser(SocketIOEvent e) {
@@ -33,7 +33,7 @@ public class Game : MonoBehaviour {
 		e.data.GetField (ref id, "id");
 
 		Item item = new Item (id, "user", userTransform);
-		this.UpdateItem (item, e);
+		this.UpdateItem (item, e, smooth: false);
 		this._items.Add (item);
 	}
 
@@ -52,7 +52,7 @@ public class Game : MonoBehaviour {
 		Transform transform = GameObject.Instantiate (itemToInstantiate);
 
 		Item item = new Item (id, type, transform);
-		this.UpdateItem(item, e);
+		this.UpdateItem(item, e, smooth: false);
 		this._items.Add (item);
 	}
 
@@ -84,7 +84,7 @@ public class Game : MonoBehaviour {
 		return null;
 	}
 
-	private void UpdateItem(Item item, SocketIOEvent e) {
+	private void UpdateItem(Item item, SocketIOEvent e, bool smooth) {
 		Vector3 position = Vector3.zero;
 		e.data.GetField (ref position.x, "x");
 		e.data.GetField (ref position.z, "y");
@@ -113,7 +113,27 @@ public class Game : MonoBehaviour {
             }
         }
 
-		item.transform.position = position;
+        Jumper jumper = item.transform.gameObject.GetComponent<Jumper>();
+
+        if (item.type == "block")
+        {
+            bool isCarried = false;
+            e.data.GetField(ref isCarried, "isCarried");
+            if (!isCarried)
+            {
+                jumper.addPosition = Vector3.zero;
+            }
+        }
+
+        if (jumper != null && smooth)
+        {
+            jumper.MoveTo(position);
+        }
+        else
+        {
+            item.transform.position = position;
+        }
+
 		item.transform.gameObject.GetComponent<ColoringHelper>().modelRenderer.material.color = color;
         item.transform.gameObject.GetComponentInChildren<MinimapItem>().SetColor( color);
 
@@ -125,8 +145,20 @@ public class Game : MonoBehaviour {
 
 			if (carries != null) {
 				Item carriesItem = this._items.Find (i => i.id == carries);
-				carriesItem.transform.position = item.transform.position + Vector3.up;
-				if (player) {
+                Jumper j = carriesItem.transform.GetComponent<Jumper>();
+                j.addPosition = Vector3.up;
+
+                bool isFirstTime = player._isCarrying == null;
+                if (isFirstTime)
+                {
+                    j.MoveTo(position);
+                }
+                else
+                {
+                    j.MoveTo(position, jumper.defaultJumpHeight);
+                }
+
+                if (player) {
 					player.SetCarrying (carriesItem.transform.GetComponent<Block> ());
 				}
 			} else {
@@ -135,7 +167,7 @@ public class Game : MonoBehaviour {
 				}
 			}
 		}
-	}
+    }
 }
 
 public class Item {
