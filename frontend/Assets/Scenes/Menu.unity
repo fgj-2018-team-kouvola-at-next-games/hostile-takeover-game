@@ -407,7 +407,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
   m_Text: "Game By: Laura Parviainen, Juho Lehtinen, Jesse Luoto & Jarkka Salminen\r\nDone
-    During: GGJ/FGJ 2019 @ Helsinki & Kouvola\n"
+    During: GGJ/FGJ 2019 @ Helsinki & Kouvola, Finland"
 --- !u!222 &765165385
 CanvasRenderer:
   m_ObjectHideFlags: 0
