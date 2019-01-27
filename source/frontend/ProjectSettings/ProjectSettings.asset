@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: FGJ 2018
+  companyName: FGJ 2019
   productName: Carrotmageddon
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
