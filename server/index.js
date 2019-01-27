@@ -1,4 +1,5 @@
 const express = require("express");
+const convert = require("color-convert");
 var app = express();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
@@ -21,17 +22,7 @@ for (let i = 0; i < 100; i++) {
 app.use(express.static("build"));
 
 io.on("connection", function(socket) {
-  const currentUser = {
-    id: uuid(),
-    x: Math.floor(Math.random() * 50),
-    y: Math.floor(Math.random() * 50),
-    r: Math.random(),
-    g: Math.random(),
-    b: Math.random(),
-    directionX: 0,
-    directionY: 1,
-    type: "user"
-  };
+  const currentUser = createUser();
 
   console.log(`a user connected with id ${currentUser.id}`);
 
@@ -180,20 +171,39 @@ function hitTestAll(target) {
 
 function updateLeaderboard() {
   const leaderboard = data.reduce((lb, item) => {
-    if (item.type !== "block") return lb
-    if (!item.owner) return lb
+    if (item.type !== "block") return lb;
+    if (!item.owner) return lb;
 
-    const numBlocks = lb[item.owner] || 0
+    const numBlocks = lb[item.owner] || 0;
     return {
       ...lb,
       [item.owner]: numBlocks + 1
-    }
-  }, {})
+    };
+  }, {});
 
-  const asArray = Object.entries(leaderboard).map(([id, numBlocks]) => ({ id, numBlocks })).sort((a,b) => b.numBlocks - a.numBlocks)
+  const asArray = Object.entries(leaderboard)
+    .map(([id, numBlocks]) => ({ id, numBlocks }))
+    .sort((a, b) => b.numBlocks - a.numBlocks);
 
-  const top10 = asArray.slice(0, 5)
-  const withUserData = top10.map((u, position) => Object.assign(u, { position }, data.find(b => b.id === u.id)))
+  const top10 = asArray.slice(0, 5);
+  const withUserData = top10.map((u, position) =>
+    Object.assign(u, { position }, data.find(b => b.id === u.id))
+  );
 
   withUserData.forEach(boardItem => io.emit("leaderboard", boardItem));
+}
+
+function createUser() {
+  const [r, g, b] = convert.hsl.rgb(Math.random() * 360, 60, 50);
+  return {
+    id: uuid(),
+    x: Math.floor(Math.random() * 50),
+    y: Math.floor(Math.random() * 50),
+    r: r / 256,
+    g: g / 256,
+    b: b / 256,
+    directionX: 0,
+    directionY: 1,
+    type: "user"
+  };
 }
