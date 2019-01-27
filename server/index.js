@@ -25,6 +25,11 @@ app.use(express.static("build"));
 
 io.on("connection", function(socket) {
   const currentUser = createUser();
+  socket.on('setNick', function({ nick }, cb) {
+    currentUser.nick = nick;
+    setTimeout(() => io.emit("update", currentUser), 0);
+    cb(true);
+  });
 
   console.log(`a user connected with id ${currentUser.id}`);
 
