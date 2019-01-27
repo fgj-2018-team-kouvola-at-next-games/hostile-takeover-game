@@ -6,6 +6,7 @@ public class ColoringHelper : MonoBehaviour
 {
 
     public Renderer modelRenderer;
+    public GameObject objectToBeRotated;
 
     // Start is called before the first frame update
     void Start()

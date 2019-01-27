@@ -76,6 +76,25 @@ public class Game : MonoBehaviour {
 		e.data.GetField (ref color.g, "g");
 		e.data.GetField (ref color.b, "b");
 
+        if (item.transform.GetComponent<ColoringHelper>().objectToBeRotated) {
+            Vector3 newDirection = item.transform.position - position;
+            GameObject objectToBeRotated = item.transform.GetComponent<ColoringHelper>().objectToBeRotated;
+
+            if (newDirection.z < 0) {
+                // UP
+                objectToBeRotated.transform.localRotation = Quaternion.Euler(0, 90, 0);
+            } else if (newDirection.z > 0) {
+                // DOWN
+                objectToBeRotated.transform.localRotation = Quaternion.Euler(0, -90, 0);
+            } else if (newDirection.x > 0) {
+                // LEFT
+                objectToBeRotated.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            } else if (newDirection.x < 0) {
+                // RIGHT
+                objectToBeRotated.transform.localRotation = Quaternion.Euler(0, -180, 0);
+            }
+        }
+
 		item.transform.position = position;
 		item.transform.gameObject.GetComponent<ColoringHelper>().modelRenderer.material.color = color;
         item.transform.gameObject.GetComponentInChildren<MinimapItem>().SetColor( color);
