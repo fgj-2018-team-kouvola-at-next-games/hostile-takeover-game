@@ -39,6 +39,11 @@ public class Player : MonoBehaviour {
 		if (target != null) {
 			_isNearBlock = null;
 		}
+
+		if (target == null && this._isCarrying != null) {
+			this._isCarrying.GetComponentInChildren<ParticleSystem>().Play();
+		}
+
 		this._isCarrying = target;
 	}
 
