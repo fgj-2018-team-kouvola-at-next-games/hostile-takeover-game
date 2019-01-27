@@ -1,4 +1,4 @@
-![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
+<img src="https://carrotmageddon.herokuapp.com/images/carrotmageddon-square-1080x1080.jpg" alt="Carrotmageddon logo" width="200" height="200" />
 
 # Carrotmageddon
 
