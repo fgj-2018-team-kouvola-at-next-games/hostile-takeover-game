@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SocketIO;
@@ -44,7 +44,11 @@ public class Player : MonoBehaviour {
 			this._isCarrying.GetComponentInChildren<ParticleSystem>().Play();
 		}
 
-		this._isCarrying = target;
+        if (target != null && this._isCarrying == null)
+        {
+            target.GetComponent<AudioSource>().Play();
+        }
+        this._isCarrying = target;
 	}
 
 	void OnTriggerEnter(Collider collider) {
