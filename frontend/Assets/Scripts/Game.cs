@@ -57,23 +57,16 @@ public class Game : MonoBehaviour {
 	}
 
 	public void OnRemoveUser(SocketIOEvent e) {
-		Debug.Log("here1");
 		string type = "";
 		e.data.GetField(ref type, "type");
 		if (type != "user") {
-			Debug.Log("here1 - exit");
 			return;
 		}
-		Debug.Log("here2");
-
-
 
 		string id = "";
 		e.data.GetField(ref id, "id");
-		Debug.Log("here2");
-		Debug.Log(id);
 		Item item = this._items.Find(i => i.id == id);
-Debug.Log(item);
+
 		Destroy(item.transform.gameObject);
 		if (item != null) {
 			this._items.Remove(item);
