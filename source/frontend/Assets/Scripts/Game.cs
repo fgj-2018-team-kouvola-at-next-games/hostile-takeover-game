@@ -95,19 +95,23 @@ public class Game : MonoBehaviour {
 		e.data.GetField (ref color.b, "b");
 
         if (item.transform.GetComponent<ColoringHelper>().objectToBeRotated) {
-            Vector3 newDirection = item.transform.position - position;
+            Vector3 newDirection = new Vector3();
+            e.data.GetField(ref newDirection.x, "directionX");
+            e.data.GetField(ref newDirection.z, "directionY");
+
             GameObject objectToBeRotated = item.transform.GetComponent<ColoringHelper>().objectToBeRotated;
 
-            if (newDirection.z < 0) {
+
+            if (newDirection.z > 0) {
                 // UP
                 objectToBeRotated.transform.localRotation = Quaternion.Euler(0, 90, 0);
-            } else if (newDirection.z > 0) {
+            } else if (newDirection.z < 0) {
                 // DOWN
                 objectToBeRotated.transform.localRotation = Quaternion.Euler(0, -90, 0);
-            } else if (newDirection.x > 0) {
+            } else if (newDirection.x < 0) {
                 // LEFT
                 objectToBeRotated.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            } else if (newDirection.x < 0) {
+            } else if (newDirection.x > 0) {
                 // RIGHT
                 objectToBeRotated.transform.localRotation = Quaternion.Euler(0, -180, 0);
             }
