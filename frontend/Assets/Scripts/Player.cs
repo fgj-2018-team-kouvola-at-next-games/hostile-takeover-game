@@ -7,24 +7,36 @@ public class Player : MonoBehaviour {
 
 	Block _isNearBlock;
 	public Block _isCarrying;
+	private System.DateTime lastMoveTimeStamp;
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+		System.DateTime now = System.DateTime.Now;
+		long elapsedMillisecs = (long)((System.TimeSpan)(now - this.lastMoveTimeStamp)).TotalMilliseconds;
+
+		if (lastMoveTimeStamp != null && elapsedMillisecs < 150) {
+			return;
+		}
+
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
+			lastMoveTimeStamp = System.DateTime.Now;
 			Api.SendMoveMessage (Vector2.up);
 		}
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
+			lastMoveTimeStamp = System.DateTime.Now;
 			Api.SendMoveMessage (Vector2.down);
 		}
 		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+			lastMoveTimeStamp = System.DateTime.Now;
 			Api.SendMoveMessage (Vector2.left);
 		}
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
+			lastMoveTimeStamp = System.DateTime.Now;
 			Api.SendMoveMessage (Vector2.right);
 		}
 
