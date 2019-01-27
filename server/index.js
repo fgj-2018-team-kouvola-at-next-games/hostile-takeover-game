@@ -5,13 +5,15 @@ var http = require("http").Server(app);
 var io = require("socket.io")(http);
 const uuid = require("uuid/v4");
 
+const AREA_SIZE = 50;
+
 const data = [];
 
 for (let i = 0; i < 100; i++) {
   data.push({
     id: uuid(),
-    x: Math.floor(Math.random() * 50),
-    y: Math.floor(Math.random() * 50),
+    x: Math.floor(Math.random() * AREA_SIZE),
+    y: Math.floor(Math.random() * AREA_SIZE),
     r: 0.7,
     g: 0.7,
     b: 0.7,
@@ -46,6 +48,13 @@ io.on("connection", function(socket) {
     if (hitTestAll(newItem)) {
       return;
     }
+
+    const isOutOfBounds =
+      newItem.x < 0 ||
+      newItem.y < 0 ||
+      newItem.x > AREA_SIZE ||
+      newItem.y > AREA_SIZE;
+    if (isOutOfBounds) return;
 
     currentUser.x += x;
     currentUser.y += y;
@@ -90,7 +99,13 @@ io.on("connection", function(socket) {
       return;
     }
 
-    if (hitTestAll({ ...block, y: currentUser.y + currentUser.directionY, x: currentUser.x + currentUser.directionX })) {
+    if (
+      hitTestAll({
+        ...block,
+        y: currentUser.y + currentUser.directionY,
+        x: currentUser.x + currentUser.directionX
+      })
+    ) {
       return;
     }
 
@@ -114,7 +129,7 @@ io.on("connection", function(socket) {
 
     setTimeout(() => io.emit("update", currentUser), 0);
 
-    updateLeaderboard()
+    updateLeaderboard();
   });
 
   socket.on("disconnect", function() {
@@ -197,8 +212,8 @@ function createUser() {
   const [r, g, b] = convert.hsl.rgb(Math.random() * 360, 60, 50);
   return {
     id: uuid(),
-    x: Math.floor(Math.random() * 50),
-    y: Math.floor(Math.random() * 50),
+    x: Math.floor(Math.random() * AREA_SIZE),
+    y: Math.floor(Math.random() * AREA_SIZE),
     r: r / 256,
     g: g / 256,
     b: b / 256,
