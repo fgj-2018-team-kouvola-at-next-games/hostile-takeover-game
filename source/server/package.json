@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "cd .. && git subtree push --prefix server heroku master"
+    "deploy": "cd ../.. && git subtree push --prefix source/server heroku master"
   },
   "author": "",
   "license": "ISC",
