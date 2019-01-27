@@ -1,6 +1,6 @@
 {
-"companyName": "DefaultCompany",
-"productName": "Hostile Takeover",
+"companyName": "FGJ 2018",
+"productName": "Carrotmageddon",
 "dataUrl": "build.data.unityweb",
 "wasmCodeUrl": "build.wasm.code.unityweb",
 "wasmFrameworkUrl": "build.wasm.framework.unityweb",
