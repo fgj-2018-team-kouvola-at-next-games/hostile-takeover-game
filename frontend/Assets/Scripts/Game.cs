@@ -24,7 +24,7 @@ public class Game : MonoBehaviour {
 		e.data.GetField (ref id, "id");
 		Item itemToChange = this._items.Find (item => item.id == id);
 
-		this.UpdateItem (itemToChange, e);
+		this.UpdateItem (itemToChange, e, smooth: true);
 	}
 
 	public void OnSetCurrentUser(SocketIOEvent e) {
@@ -33,7 +33,7 @@ public class Game : MonoBehaviour {
 		e.data.GetField (ref id, "id");
 
 		Item item = new Item (id, "user", userTransform);
-		this.UpdateItem (item, e);
+		this.UpdateItem (item, e, smooth: false);
 		this._items.Add (item);
 	}
 
@@ -52,7 +52,7 @@ public class Game : MonoBehaviour {
 		Transform transform = GameObject.Instantiate (itemToInstantiate);
 
 		Item item = new Item (id, type, transform);
-		this.UpdateItem(item, e);
+		this.UpdateItem(item, e, smooth: false);
 		this._items.Add (item);
 	}
 
@@ -91,7 +91,7 @@ Debug.Log(item);
 		return null;
 	}
 
-	private void UpdateItem(Item item, SocketIOEvent e) {
+	private void UpdateItem(Item item, SocketIOEvent e, bool smooth) {
 		Vector3 position = Vector3.zero;
 		e.data.GetField (ref position.x, "x");
 		e.data.GetField (ref position.z, "y");
@@ -120,7 +120,16 @@ Debug.Log(item);
             }
         }
 
-		item.transform.position = position;
+        Player p = item.transform.gameObject.GetComponent<Player>();
+        if (p != null && smooth)
+        {
+            p.MoveTo(position);
+        }
+        else
+        {
+            item.transform.position = position;
+        }
+
 		item.transform.gameObject.GetComponent<ColoringHelper>().modelRenderer.material.color = color;
         item.transform.gameObject.GetComponentInChildren<MinimapItem>().SetColor( color);
 
