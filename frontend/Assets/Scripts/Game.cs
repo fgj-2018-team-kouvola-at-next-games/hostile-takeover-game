@@ -8,14 +8,15 @@ public class Game : MonoBehaviour {
 	public Transform currentUserPrefab;
 	public Transform otherUserPrefab;
 	public Transform blockPrefab;
-   
+
 	private List<Item> _items = new List<Item>();
 
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
 		Api.On ("setCurrentUser", this.OnSetCurrentUser);
 		Api.On ("update", this.OnUpdate);
 		Api.On ("initItem", this.OnInitItem);
+		Api.On ("removeUser", this.OnRemoveUser);
 	}
 
 	public void OnUpdate(SocketIOEvent e) {
@@ -53,6 +54,30 @@ public class Game : MonoBehaviour {
 		Item item = new Item (id, type, transform);
 		this.UpdateItem(item, e);
 		this._items.Add (item);
+	}
+
+	public void OnRemoveUser(SocketIOEvent e) {
+		Debug.Log("here1");
+		string type = "";
+		e.data.GetField(ref type, "type");
+		if (type != "user") {
+			Debug.Log("here1 - exit");
+			return;
+		}
+		Debug.Log("here2");
+
+
+
+		string id = "";
+		e.data.GetField(ref id, "id");
+		Debug.Log("here2");
+		Debug.Log(id);
+		Item item = this._items.Find(i => i.id == id);
+Debug.Log(item);
+		Destroy(item.transform.gameObject);
+		if (item != null) {
+			this._items.Remove(item);
+		}
 	}
 
 	private Transform ItemTypeToTransform(string type) {
