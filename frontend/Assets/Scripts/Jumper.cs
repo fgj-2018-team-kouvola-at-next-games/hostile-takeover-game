@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Jumper : MonoBehaviour
 {
     public Transform t;
     public Vector3 addPosition = Vector3.zero;
     public float defaultJumpHeight = 0.5f;
+    public bool playSoundOnJump = false;
 
     public void MoveTo(Vector3 position)
     {
@@ -27,6 +29,10 @@ public class Jumper : MonoBehaviour
         Vector3 startPos = t.position;
         if (startPos != targetPos)
         {
+            if(this.playSoundOnJump && this.GetComponent<AudioSource>() != null)
+            {
+                this.GetComponent<AudioSource>().Play();
+            }
             while (Time.time < startTime + ANIM_LENGTH)
             {
                 float p = (Time.time - startTime) / ANIM_LENGTH;
