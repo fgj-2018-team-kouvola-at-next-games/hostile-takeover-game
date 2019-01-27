@@ -25,7 +25,7 @@ app.use(express.static("build"));
 
 io.on("connection", function(socket) {
   const currentUser = createUser();
-  socket.on('setNick', function({ nick }, cb) {
+  socket.on("setNick", function({ nick }, cb) {
     currentUser.nick = nick;
     setTimeout(() => io.emit("update", currentUser), 0);
     cb(true);
@@ -43,7 +43,16 @@ io.on("connection", function(socket) {
   socket.emit("setCurrentUser", currentUser);
   io.emit("initItem", currentUser);
 
+  let idleKicker = setTimeout(() => {
+    socket.disconnect();
+  }, 60000);
+
   socket.on("move", function({ x, y }) {
+    clearTimeout(idleKicker);
+    idleKicker = setTimeout(() => {
+      socket.disconnect();
+    }, 60000);
+
     // hit test
     const newItem = {
       ...currentUser,
@@ -139,7 +148,7 @@ io.on("connection", function(socket) {
 
   socket.on("disconnect", function() {
     removeUser(currentUser.id);
-    io.emit('removeUser', currentUser);
+    io.emit("removeUser", currentUser);
     console.log("a user disconnected with id", currentUser.id);
   });
 });
@@ -152,7 +161,7 @@ http.listen(PORT, function() {
 function removeUser(userId) {
   data.forEach((item, i, arr) => {
     // release all the blocks owned by this user
-    if (item.owner === userId && item.type === 'block') {
+    if (item.owner === userId && item.type === "block") {
       delete arr[i].owner;
       arr[i].r = 0.5;
       arr[i].g = 0.5;
@@ -160,8 +169,8 @@ function removeUser(userId) {
       io.emit("update", arr[i]);
     }
     // remove user from the game
-    if (item.id === userId && item.type === 'user') {
-      arr.splice[i, 1];
+    if (item.id === userId && item.type === "user") {
+      arr.splice[(i, 1)];
     }
   });
 }
