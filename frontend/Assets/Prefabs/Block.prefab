@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelRenderer: {fileID: 4898965150645162916}
+  objectToBeRotated: {fileID: 0}
 --- !u!1001 &4898965150643129288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -207,6 +208,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2300012, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 914292f120c5d4d1ba86ec125bd65a8a, type: 2}
+    - target: {fileID: 2300014, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4876cee9cfef74ef78148c8ddf151805, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
 --- !u!4 &4898965150643261784 stripped

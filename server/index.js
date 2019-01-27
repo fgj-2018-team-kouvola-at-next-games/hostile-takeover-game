@@ -11,9 +11,9 @@ for (let i = 0; i < 100; i++) {
     id: uuid(),
     x: Math.floor(Math.random() * 50),
     y: Math.floor(Math.random() * 50),
-    r: 0.5,
-    g: 0.5,
-    b: 0.5,
+    r: 0.7,
+    g: 0.7,
+    b: 0.7,
     type: "block"
   });
 }
