@@ -157,7 +157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.68
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -197,15 +197,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.35
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e272acda731fb4d88819e3de2a3fb3a8, type: 3}
@@ -228,11 +228,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4977459944846508}
     m_Modifications:
-    - target: {fileID: 2631028949343902458, guid: 1f43227ca5ada4305bd6bae41a10c9d1,
-        type: 3}
-      propertyPath: m_Name
-      value: Minimap item
-      objectReference: {fileID: 0}
     - target: {fileID: 6689629668565091204, guid: 1f43227ca5ada4305bd6bae41a10c9d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -302,6 +297,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2631028949343902458, guid: 1f43227ca5ada4305bd6bae41a10c9d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Minimap item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f43227ca5ada4305bd6bae41a10c9d1, type: 3}
