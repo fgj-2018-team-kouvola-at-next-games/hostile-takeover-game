@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4977459944846508}
   - component: {fileID: 33805577322766786}
+  - component: {fileID: 4440234569358180527}
   - component: {fileID: 23123530444914266}
   - component: {fileID: 95096146978735984}
   - component: {fileID: 114408123790617208}
@@ -46,6 +47,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579490898768600}
   m_Mesh: {fileID: 4300000, guid: 778361366aa9a428c8461b27ed6e0d31, type: 3}
+--- !u!114 &4440234569358180527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579490898768600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c200e9e3ca002487cafe7c89c7ba028f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: {fileID: 4977459944846508}
+  addPosition: {x: 0, y: 0, z: 0}
+  defaultJumpHeight: 3
 --- !u!23 &23123530444914266
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -237,6 +253,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4977459944846508}
     m_Modifications:
+    - target: {fileID: 2631028949343902458, guid: 1f43227ca5ada4305bd6bae41a10c9d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Minimap item
+      objectReference: {fileID: 0}
     - target: {fileID: 6689629668565091204, guid: 1f43227ca5ada4305bd6bae41a10c9d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -306,11 +327,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2631028949343902458, guid: 1f43227ca5ada4305bd6bae41a10c9d1,
-        type: 3}
-      propertyPath: m_Name
-      value: Minimap item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f43227ca5ada4305bd6bae41a10c9d1, type: 3}

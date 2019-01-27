@@ -120,10 +120,21 @@ Debug.Log(item);
             }
         }
 
-        Player p = item.transform.gameObject.GetComponent<Player>();
-        if (p != null && smooth)
+        Jumper jumper = item.transform.gameObject.GetComponent<Jumper>();
+
+        if (item.type == "block")
         {
-            p.MoveTo(position);
+            bool isCarried = false;
+            e.data.GetField(ref isCarried, "isCarried");
+            if (!isCarried)
+            {
+                jumper.addPosition = Vector3.zero;
+            }
+        }
+
+        if (jumper != null && smooth)
+        {
+            jumper.MoveTo(position);
         }
         else
         {
@@ -141,8 +152,20 @@ Debug.Log(item);
 
 			if (carries != null) {
 				Item carriesItem = this._items.Find (i => i.id == carries);
-				carriesItem.transform.position = item.transform.position + Vector3.up;
-				if (player) {
+                Jumper j = carriesItem.transform.GetComponent<Jumper>();
+                j.addPosition = Vector3.up;
+
+                bool isFirstTime = player._isCarrying == null;
+                if (isFirstTime)
+                {
+                    j.MoveTo(position);
+                }
+                else
+                {
+                    j.MoveTo(position, jumper.defaultJumpHeight);
+                }
+
+                if (player) {
 					player.SetCarrying (carriesItem.transform.GetComponent<Block> ());
 				}
 			} else {
@@ -151,7 +174,7 @@ Debug.Log(item);
 				}
 			}
 		}
-	}
+    }
 }
 
 public class Item {
