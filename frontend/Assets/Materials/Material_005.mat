@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Material_005
-  m_Shader: {fileID: 4800000, guid: 44b54c59129572f469a949a22bc08cd0, type: 3}
+  m_Shader: {fileID: 4800000, guid: 76374158b4c4e5744b394e9290aae693, type: 3}
   m_ShaderKeywords: _COLOR_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -72,6 +72,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Outline: 6
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -83,3 +84,4 @@ Material:
     m_Colors:
     - _Color: {r: 0.0995, g: 0.4672, b: 0.0065, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 0.16981131, g: 0.12669098, b: 0.12415449, a: 1}
